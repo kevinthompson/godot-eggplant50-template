@@ -1,9 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://games/kevinthompson/assets/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://games/kevinthompson/assets/palette.png" type="Texture" id=2]
+[ext_resource path="res://games/kevinthompson/assets/square.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.217877, 0.560209, 0.803665, 1 )
+colors = PoolColorArray( 0.698039, 0.737255, 0.760784, 1, 0.470588, 0.517647, 0.670588, 1, 0.243137, 0.215686, 0.360784, 1, 0.215686, 0.145098, 0.219608, 1, 0.0901961, 0.0666667, 0.101961, 1 )
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -43,7 +48,7 @@ default_font = SubResource( 4 )
 position = Vector2( 1, 0 )
 
 [node name="Player" type="Node2D" parent="."]
-position = Vector2( 72, 145 )
+position = Vector2( 125, 108 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="Player"]
 __meta__ = {
@@ -53,19 +58,22 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/KinematicBody2D"]
 shape = SubResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="Player"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-color = Color( 0.513726, 0.878431, 0.298039, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Square" type="Sprite" parent="Player/KinematicBody2D"]
+modulate = Color( 0.862745, 1, 0.439216, 1 )
+scale = Vector2( 0.1125, 0.1125 )
+texture = ExtResource( 4 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Player"]
+position = Vector2( 0, -16 )
+z_index = -1
+emission_shape = 1
+emission_sphere_radius = 16.0
+direction = Vector2( 0, 0 )
+spread = 36.0
+gravity = Vector2( 0, -98 )
+scale_amount = 2.0
+color_ramp = SubResource( 6 )
+hue_variation = 1.0
 
 [node name="PaletteShader" type="CanvasLayer" parent="."]
 layer = 128
@@ -74,41 +82,27 @@ layer = 128
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_scale = Vector2( 1.72, 1.72 )
 color = Color( 0.0313726, 0.0235294, 0.0235294, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.0901961, 0.0666667, 0.101961, 1 )
 
 [node name="Dialog" type="Node2D" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Dialog"]
-
-[node name="MarginContainer" type="MarginContainer" parent="Dialog/CanvasLayer"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="RichTextLabel" type="RichTextLabel" parent="Dialog"]
 margin_left = 10.0
-margin_top = -150.0
-margin_right = -10.0
-margin_bottom = -10.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Dialog/CanvasLayer/MarginContainer"]
-margin_right = 620.0
-margin_bottom = 140.0
+margin_top = 282.0
+margin_right = 640.0
+margin_bottom = 3456.0
+grow_vertical = 0
 theme = SubResource( 5 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 tab_size = 2
-text = "Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent. Electromagnetic and subspace wave fronts approaching synchronization."
+text = "Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent."
 fit_content_height = true
 scroll_active = false
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 320, 180 )
+current = true
