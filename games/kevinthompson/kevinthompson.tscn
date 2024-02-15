@@ -33,6 +33,7 @@ shader_param/palette = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 32
+extra_spacing_top = -4
 font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=5]
@@ -42,7 +43,7 @@ default_font = SubResource( 4 )
 position = Vector2( 1, 0 )
 
 [node name="Player" type="Node2D" parent="."]
-position = Vector2( 82, 86 )
+position = Vector2( 72, 145 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="Player"]
 __meta__ = {
